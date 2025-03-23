@@ -1,0 +1,42 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "testD4"
+		},
+		"AzureDataLakeStorage_Manual_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage_template_source_accountKey": {
+			"value": ""
+		},
+		"Tumbling_LS_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage_Manual_properties_typeProperties_url": {
+			"value": "https://adlsd4.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage_template_source_properties_typeProperties_url": {
+			"value": "https://adlsd4.dfs.core.windows.net/"
+		},
+		"Tumbling_LS_properties_typeProperties_url": {
+			"value": "https://adlsd4.dfs.core.windows.net/"
+		},
+		"Blob_Event_Trigger_properties_Eventbased_Trigger_Pipeline_parameters_FileName": {
+			"value": "@triggerBody().fileName"
+		},
+		"Blob_Event_Trigger_properties_typeProperties_scope": {
+			"value": "/subscriptions/09c9648b-a874-4e8e-9a38-7ab09c19b5b1/resourceGroups/azure_D4/providers/Microsoft.Storage/storageAccounts/adlsd4"
+		},
+		"Tumbling_Window_Trigger_properties_pipeline_parameters_StartTime": {
+			"value": "@trigger().outputs.windowStartTime"
+		},
+		"Tumbling_Window_Trigger_properties_pipeline_parameters_EndTime": {
+			"value": "@trigger().outputs.windowEndTime"
+		},
+		"event_2_blob_properties_typeProperties_scope": {
+			"value": "/subscriptions/09c9648b-a874-4e8e-9a38-7ab09c19b5b1/resourceGroups/azure_D4/providers/Microsoft.Storage/storageAccounts/blobtest2520"
+		}
+	}
+}

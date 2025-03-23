@@ -1,0 +1,139 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "testD4"
+		},
+		"AzureDataLakeStorage_Manual_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage_Manual'"
+		},
+		"AzureDataLakeStorage_template_source_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage_template_source'"
+		},
+		"Tumbling_LS_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'Tumbling_LS'"
+		},
+		"AzureDataLakeStorage_Manual_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlsd4.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage_template_source_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlsd4.dfs.core.windows.net/"
+		},
+		"Tumbling_LS_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlsd4.dfs.core.windows.net/"
+		},
+		"Blob_Event_Trigger_properties_Eventbased_Trigger_Pipeline_parameters_FileName": {
+			"type": "string",
+			"defaultValue": "@triggerBody().fileName"
+		},
+		"Blob_Event_Trigger_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/09c9648b-a874-4e8e-9a38-7ab09c19b5b1/resourceGroups/azure_D4/providers/Microsoft.Storage/storageAccounts/adlsd4"
+		},
+		"Tumbling_Window_Trigger_properties_pipeline_parameters_StartTime": {
+			"type": "string",
+			"defaultValue": "@trigger().outputs.windowStartTime"
+		},
+		"Tumbling_Window_Trigger_properties_pipeline_parameters_EndTime": {
+			"type": "string",
+			"defaultValue": "@trigger().outputs.windowEndTime"
+		},
+		"event_2_blob_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/09c9648b-a874-4e8e-9a38-7ab09c19b5b1/resourceGroups/azure_D4/providers/Microsoft.Storage/storageAccounts/blobtest2520"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "testD4_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureDataLakeStorage_Manual_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage_Manual_accountKey')]"
+					},
+					"AzureDataLakeStorage_template_source_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage_template_source_accountKey')]"
+					},
+					"Tumbling_LS_accountKey": {
+						"value": "[parameters('Tumbling_LS_accountKey')]"
+					},
+					"AzureDataLakeStorage_Manual_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage_Manual_properties_typeProperties_url')]"
+					},
+					"AzureDataLakeStorage_template_source_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage_template_source_properties_typeProperties_url')]"
+					},
+					"Tumbling_LS_properties_typeProperties_url": {
+						"value": "[parameters('Tumbling_LS_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "testD4_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"event_2_blob_properties_typeProperties_scope": {
+						"value": "[parameters('event_2_blob_properties_typeProperties_scope')]"
+					},
+					"Blob_Event_Trigger_properties_Eventbased_Trigger_Pipeline_parameters_FileName": {
+						"value": "[parameters('Blob_Event_Trigger_properties_Eventbased_Trigger_Pipeline_parameters_FileName')]"
+					},
+					"Blob_Event_Trigger_properties_typeProperties_scope": {
+						"value": "[parameters('Blob_Event_Trigger_properties_typeProperties_scope')]"
+					},
+					"Tumbling_Window_Trigger_properties_pipeline_parameters_StartTime": {
+						"value": "[parameters('Tumbling_Window_Trigger_properties_pipeline_parameters_StartTime')]"
+					},
+					"Tumbling_Window_Trigger_properties_pipeline_parameters_EndTime": {
+						"value": "[parameters('Tumbling_Window_Trigger_properties_pipeline_parameters_EndTime')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'testD4_ArmTemplate_0')]"
+			]
+		}
+	]
+}
