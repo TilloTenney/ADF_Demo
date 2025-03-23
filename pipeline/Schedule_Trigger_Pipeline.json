@@ -1,0 +1,22 @@
+{
+	"name": "Schedule_Trigger_Pipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "Wait1",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": 1
+				}
+			}
+		],
+		"folder": {
+			"name": "Day7"
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-03-16T05:05:37Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

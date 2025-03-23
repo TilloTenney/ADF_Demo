@@ -1,0 +1,134 @@
+{
+	"name": "CopyPipeline_csv",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_iqb",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "practice/raw/"
+					},
+					{
+						"name": "Destination",
+						"value": "practice/destination/processed.csv"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings",
+							"skipLineCount": 0
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings",
+							"copyBehavior": "MergeFiles"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"validateDataConsistency": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "plant_name",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "plant_name",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "UOM",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "UOM",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Low_End_of_Range",
+									"type": "Int16",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Low_End_of_Range",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "High_End_of_Range",
+									"type": "Int16",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "High_End_of_Range",
+									"type": "String",
+									"physicalType": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_iqb",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DestinationDataset_iqb",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "Day5"
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-03-09T05:40:33Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

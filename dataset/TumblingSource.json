@@ -1,0 +1,65 @@
+{
+	"name": "TumblingSource",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Tumbling_LS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "source",
+				"fileSystem": "day7"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "year",
+				"type": "String"
+			},
+			{
+				"name": "Industry_code",
+				"type": "String"
+			},
+			{
+				"name": "Industry_desc",
+				"type": "String"
+			},
+			{
+				"name": "Environmental_base",
+				"type": "String"
+			},
+			{
+				"name": "National_accounts_var",
+				"type": "String"
+			},
+			{
+				"name": "units",
+				"type": "String"
+			},
+			{
+				"name": "magnitude",
+				"type": "String"
+			},
+			{
+				"name": "source",
+				"type": "String"
+			},
+			{
+				"name": "data_value",
+				"type": "String"
+			},
+			{
+				"name": "flag",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
